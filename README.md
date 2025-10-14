@@ -17,6 +17,15 @@ Each folder is a standalone module with:
 - Step-by-step guides
 - Blue team insights when relevant
 
+## 📂 Modules
+
+- [00-intro](./00-intro) — Intro to CLI, permissions, scripting basics
+- [01-basics](./01-basics) — File operations, basic Python, command usage
+- [02-network-ops](./02-network-ops) — Interfaces, port scanning, sniffing
+- [03-malware-simulation](./03-malware-simulation) — Encoded payloads, keyloggers, screenshotting, exfiltration
+- [04-keyloggers-trojans](./04-keyloggers-trojans) — Modular malware simulation (keylogger, exfil, persistence)
+- [05-misc](./05-misc) — Extra tools: fake data gen, DNS resolver, log spammer
+
 
 ## ⚠️ Legal Notice
 
