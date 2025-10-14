@@ -4,6 +4,8 @@ Welcome to **hellcat-cybersec-fundamental** — a practical, hands-on learning s
 
 This repository is designed for educational purposes, with real code, real labs, and real-world logic — but zero bullshit.
 
+![Repo Banner](./.github/banner.png)
+
 
 ## What you’ll find here
 
