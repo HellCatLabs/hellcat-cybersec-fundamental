@@ -17,3 +17,9 @@ Each folder contains:
 > ⚠️ Many of these labs require **root privileges** and should be run in an isolated lab environment or virtual machine.
 
 You are responsible for how you use this knowledge.
+
+## Related Modules
+
+- **Prerequisites**: [01-basics](../01-basics) — System scripting fundamentals used throughout this module
+- **Next step**: [03-malware-basics](../03-malware-basics) — Apply network knowledge to malware simulation (e.g. HTTP exfiltration)
+- **Combined lab**: [04-keyloggers-trojans](../04-keyloggers-trojans) — Full attack chain including exfiltration over the network

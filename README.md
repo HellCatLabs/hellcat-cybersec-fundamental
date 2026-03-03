@@ -24,9 +24,35 @@ Each folder is a standalone module with:
 - [00-intro](./00-intro) — Intro to CLI, permissions, scripting basics
 - [01-basics](./01-basics) — File operations, basic Python, command usage
 - [02-network-ops](./02-network-ops) — Interfaces, port scanning, sniffing
-- [03-malware-simulation](./03-malware-simulation) — Encoded payloads, keyloggers, screenshotting, exfiltration
+- [03-malware-basics](./03-malware-basics) — Encoded payloads, keyloggers, screenshotting, exfiltration
 - [04-keyloggers-trojans](./04-keyloggers-trojans) — Modular malware simulation (keylogger, exfil, persistence)
 - [05-misc](./05-misc) — Extra tools: fake data gen, DNS resolver, log spammer
+
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/HellCatLabs/hellcat-cybersec-fundamental.git
+cd hellcat-cybersec-fundamental
+
+# Install all dependencies
+pip install -r requirements.txt
+
+# Run tests
+pytest tests/ -v
+```
+
+## 🧪 Tests
+
+The project includes an automated test suite covering all modules:
+
+```bash
+pytest tests/ -v
+```
+
+Tests verify function behavior, CLI argument parsing, and output format.
+Scripts requiring `scapy` or `pynput` are automatically skipped if not installed.
 
 
 ## ⚠️ Legal Notice

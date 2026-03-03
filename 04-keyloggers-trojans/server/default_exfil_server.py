@@ -4,11 +4,11 @@
 
 from flask import Flask, request, jsonify
 import os
+import argparse
 
 app = Flask(__name__)
 
 SAVE_DIR = "received_logs"
-os.makedirs(SAVE_DIR, exist_ok=True)
 
 @app.route('/exfil', methods=['POST'])
 def receive():
@@ -31,5 +31,14 @@ def receive():
     return jsonify({"status": "success", "message": "Data received"}), 200
 
 if __name__ == "__main__":
-    print("[*] Listening for exfiltration on http://localhost:8000/exfil")
-    app.run(host="0.0.0.0", port=8000)
+    parser = argparse.ArgumentParser(description="Exfiltration receiver server")
+    parser.add_argument("-p", "--port", type=int, default=8000, help="Listening port (default: 8000)")
+    parser.add_argument("--host", default="0.0.0.0", help="Bind address (default: 0.0.0.0)")
+    parser.add_argument("-d", "--save-dir", default=SAVE_DIR, help="Directory to save logs (default: received_logs)")
+    args = parser.parse_args()
+
+    SAVE_DIR = args.save_dir
+    os.makedirs(SAVE_DIR, exist_ok=True)
+
+    print(f"[*] Listening for exfiltration on http://{args.host}:{args.port}/exfil")
+    app.run(host=args.host, port=args.port)

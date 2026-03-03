@@ -61,3 +61,11 @@ Detection strategy:
 - Add webcam screenshot capture
 - Auto-remove logs after exfil
 - Encrypt log file content
+
+## Related Modules
+
+- **Keylogger theory**: [03-malware-basics/04_keylogger](../03-malware-basics/04_keylogger) — Standalone keylogger lab
+- **Exfiltration**: [03-malware-basics/06_exfil_via_http](../03-malware-basics/06_exfil_via_http) — HTTP exfil explained in detail
+- **Persistence**: [03-malware-basics/01_persistence_registry](../03-malware-basics/01_persistence_registry) — Registry persistence deep dive
+- **Network layer**: [02-network-ops](../02-network-ops) — Understand MITM, sniffing, and ARP used alongside trojans
+- **Test data**: [05-misc](../05-misc) — Generate fake datasets to test your detection rules

@@ -3,8 +3,15 @@
 
 from scapy.all import sniff, DNS, Raw
 from datetime import datetime
+import argparse
 
-LOG_FILE = "sniffer_log.txt"
+parser = argparse.ArgumentParser(description="Extended packet sniffer with DNS/HTTP logging")
+parser.add_argument("-o", "--output", default="sniffer_log.txt", help="Log file (default: sniffer_log.txt)")
+parser.add_argument("-f", "--filter", default="tcp or udp", help="BPF filter (default: 'tcp or udp')")
+parser.add_argument("--http-port", type=int, default=80, help="HTTP port to monitor (default: 80)")
+args = parser.parse_args()
+
+LOG_FILE = args.output
 
 def log_packet(pkt):
     """Write packet summary to log file."""
@@ -24,8 +31,8 @@ def process_packet(pkt):
         except:
             pass
 
-    # Potential HTTP (port 80 + raw payload)
-    if pkt.haslayer(Raw) and pkt.haslayer("TCP") and pkt["TCP"].dport == 80:
+    # Potential HTTP (configurable port + raw payload)
+    if pkt.haslayer(Raw) and pkt.haslayer("TCP") and pkt["TCP"].dport == args.http_port:
         payload = pkt[Raw].load
         try:
             if b"Host:" in payload or b"GET" in payload:
@@ -37,5 +44,5 @@ def process_packet(pkt):
 print("[*] Starting extended sniffer on default interface...")
 print("[*] Logging to:", LOG_FILE)
 
-# Sniff only TCP/UDP traffic (ignore ARP, ICMP, etc.)
-sniff(filter="tcp or udp", prn=process_packet, store=False)
+# Sniff traffic based on BPF filter
+sniff(filter=args.filter, prn=process_packet, store=False)

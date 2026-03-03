@@ -8,3 +8,7 @@ Contents:
 - [Why this repo exists](01_why_this_repo.md)
 - [Getting started](02_getting_started.md)
 - [Extra resources](resources.md)
+
+## Next Steps
+
+Once you're set up, start with [01-basics](../01-basics) to learn system-level scripting fundamentals.

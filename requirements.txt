@@ -1,0 +1,16 @@
+# HellCat CyberSec Fundamentals — Dependencies
+# Install all: pip install -r requirements.txt
+
+# --- Network Operations (02-network-ops) ---
+scapy>=2.5.0          # Packet crafting, sniffing, ARP spoofing, MITM
+
+# --- Malware Basics (03-malware-basics) ---
+pynput>=1.7.6         # Keylogger — keyboard event capture
+Pillow>=10.0.0        # Screenshot grabber — screen capture
+requests>=2.31.0      # HTTP exfiltration client
+
+# --- Exfiltration Server (03-malware-basics, 04-keyloggers-trojans) ---
+flask>=3.0.0          # Lightweight HTTP server for exfil receiver
+
+# --- Testing ---
+pytest>=7.4.0         # Test framework
